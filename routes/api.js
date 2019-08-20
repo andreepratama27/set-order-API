@@ -1,9 +1,11 @@
-const users = require("./users");
-const roles = require("./roles");
-const restaurants = require("./restaurants");
+const users = require('./users');
+const roles = require('./roles');
+const menus = require('./menus');
+const restaurants = require('./restaurants');
 
 module.exports = {
   users,
   roles,
-  restaurants
+  menus,
+  restaurants,
 };

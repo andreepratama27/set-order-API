@@ -15,6 +15,7 @@ module.exports = (sequelize, DataTypes) => {
   );
   Restaurant.associate = function(models) {
     // associations can be defined here
+    Restaurant.hasMany(models.Menu, {as: 'menu'});
   };
   return Restaurant;
 };
