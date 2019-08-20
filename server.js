@@ -1,38 +1,17 @@
 const express = require("express");
-const logger = require("morgan");
+const app = express();
 const bodyParser = require("body-parser");
 const jwt = require("jsonwebtoken");
+const axios = require("axios");
 
-const app = express();
+// const {GraphQLServer} = require('graphql-yoga');
+// server.start(() => console.log("🚀 server running")); //   type Query { //     user(username: String!): User //   } //     name: String //     avatar_url: String //   } // `; //   Query: { //     user: (_, args) => { //       const {username} = args; //         .get(`https://api.github.com/users/${username}`) //         .then(res => res.data); //     }, //   }, // }; //   console.log(`🚀 Server running`); // const BASE_URL = 'https://api.github.com/users'; // const typeDefs = ` //   type User { // const resolvers = { //       return axios // const server = new GraphQLServer({typeDefs, resolvers});
+// server.start(() => {
+
+const { validateUser } = require("./middleware");
 const port = process.env.PORT || 3000;
-
+const logger = require("morgan");
 const { users, roles, restaurants } = require("./routes/api");
-
-const validateUser = (req, res, next) => {
-  console.log(req.headers);
-  let token = req.headers["authorization"] || req.headers["x-access-token"];
-
-  if (token.startsWith("Bearer")) {
-    token = token.substr(7, token.length);
-  }
-
-  if (token) {
-    jwt.verify(req.headers["authorization"], "secret_key", (err, decoded) => {
-      if (err) {
-        res
-          .status(500)
-          .json({ success: false, message: err.message, data: {} });
-      } else {
-        req.body.userId = decoded.id;
-        next();
-      }
-    });
-  } else {
-    res
-      .status(500)
-      .json({ success: false, message: "Token not provided", data: {} });
-  }
-};
 
 app.use(logger("dev"));
 app.use(bodyParser.urlencoded({ extended: false }));
