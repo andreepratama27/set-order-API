@@ -62,7 +62,7 @@ restaurants.post('/signin', (req, res) => {
       });
     })
     .catch(err => {
-      res.json({
+      res.status(401).json({
         success: false,
         message: err.message,
         data: {},

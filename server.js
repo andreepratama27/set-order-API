@@ -3,11 +3,14 @@ const app = express();
 const bodyParser = require('body-parser');
 const jwt = require('jsonwebtoken');
 const axios = require('axios');
+const cors = require('cors');
 
 const {validateUser} = require('./middleware');
 const port = process.env.PORT || 3000;
 const logger = require('morgan');
 const {users, roles, restaurants, menus} = require('./routes/api');
+
+app.use(cors());
 
 app.use(logger('dev'));
 app.use(bodyParser.urlencoded({extended: false}));
