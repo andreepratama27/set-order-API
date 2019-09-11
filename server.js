@@ -11,6 +11,7 @@ const logger = require('morgan');
 const {users, roles, restaurants, menus} = require('./routes/api');
 
 app.use(cors());
+app.use(express.static('public'));
 
 app.use(logger('dev'));
 app.use(bodyParser.urlencoded({extended: false}));
@@ -18,6 +19,7 @@ app.use(bodyParser.json());
 
 app.use('/api/v1/users/', users);
 app.use('/api/v1/roles/', roles);
+
 app.use('/api/v1/menus/', menus);
 app.use('/api/v1/restaurants', restaurants);
 

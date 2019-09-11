@@ -1,13 +1,14 @@
 const restaurants = require('express').Router();
 const jwt = require('jsonwebtoken');
 const {Restaurant} = require('../models');
+const {validateUser} = require('../middleware');
 
 const bcrypt = require('bcrypt');
 const saltRound = 10;
 
-restaurants.get('/', async (req, res) => {
+restaurants.get('/', validateUser, async (req, res) => {
   try {
-    let data = await Restaurant.findAll({});
+    let data = await Restaurant.findAll({include: 'menu'});
 
     if (data.length) {
       res.status(200).json({
@@ -100,5 +101,26 @@ restaurants.post('/signup', async (req, res) => {
     });
   });
 });
+
+restaurants.get('/me', validateUser, async (req, res) => {
+  let userId = req.body.userId;
+  Restaurant.findOne({where: {id: userId}}).then(result => {
+    if (result) {
+      res.status(200).json({
+        success: true,
+        message: 'Profile successfully fetched',
+        data: result,
+      });
+    } else {
+      res.status(404).json({
+        success: false,
+        message: 'Profile not found',
+        data: {},
+      });
+    }
+  });
+});
+
+restaurants.post;
 
 module.exports = restaurants;

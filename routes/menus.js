@@ -1,27 +1,33 @@
-const menus = require('express').Router();
 const jwt = require('jsonwebtoken');
-const {Menu} = require('../models');
+const menus = require('express').Router();
+const {Menu, Restaurant} = require('../models');
+const multerConfig = require('../utils/multer');
+const {validateUser} = require('./../middleware');
 
-menus.get('/', async (req, res) => {
-  // get id user who login with token
-  try {
-    let data = await Menu.findAll({});
+menus.get('/', validateUser, async (req, res) => {
+  let userId = req.body.userId;
 
-    res.status(200).json({
-      success: true,
-      message: 'success',
-      data,
-    });
-  } catch (err) {
-    res.status(404).json({
-      success: true,
-      message: err.message,
-      data: {},
-    });
-  }
+  Restaurant.findOne({where: {id: userId}, include: 'menu'}).then(result => {
+    if (result) {
+      res.status(200).json({
+        success: true,
+        message: 'Menu successfully fetched',
+        data: result.menu,
+      });
+    } else {
+      res.status(404).json({
+        success: false,
+        message: 'Menu not found',
+        data: {},
+      });
+    }
+  });
 });
 
-menus.post('/', async (req, res) => {
+menus.post('/', multerConfig.saveToUploads, validateUser, async (req, res) => {
+  req.body.restaurantId = req.body.userId;
+  req.body.avatar = req.file.originalname;
+
   Menu.create({...req.body})
     .then(result => {
       res.json({
@@ -37,6 +43,30 @@ menus.post('/', async (req, res) => {
         data: {},
       });
     });
+});
+
+menus.delete('/:id', async (req, res) => {
+  let id = req.params.id;
+
+  Menu.destroy({
+    where: {
+      id,
+    },
+  }).then(result => {
+    if (result) {
+      res.status(200).json({
+        success: true,
+        message: 'Successfully deleted',
+        data: result,
+      });
+    } else {
+      res.status(404).json({
+        success: true,
+        message: 'Successfully deleted',
+        data: result,
+      });
+    }
+  });
 });
 
 module.exports = menus;

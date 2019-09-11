@@ -1,10 +1,7 @@
-const validateUser = (req, res, next) => {
-  console.log(req.headers);
-  let token = req.headers['authorization'] || req.headers['x-access-token'];
+const jwt = require('jsonwebtoken');
 
-  if (token.startsWith('Bearer')) {
-    token = token.substr(7, token.length);
-  }
+const validateUser = (req, res, next) => {
+  let token = req.headers['authorization'] || req.headers['x-access-token'];
 
   if (token) {
     jwt.verify(req.headers['authorization'], 'secret_key', (err, decoded) => {
@@ -22,6 +19,6 @@ const validateUser = (req, res, next) => {
   }
 };
 
-module.export = {
+module.exports = {
   validateUser,
 };
