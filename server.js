@@ -8,7 +8,7 @@ const cors = require('cors');
 const {validateUser} = require('./middleware');
 const port = process.env.PORT || 3000;
 const logger = require('morgan');
-const {users, roles, restaurants, menus} = require('./routes/api');
+const {users, roles, restaurants, menus, schedules} = require('./routes/api');
 
 app.use(cors());
 app.use(express.static('public'));
@@ -21,6 +21,7 @@ app.use('/api/v1/users/', users);
 app.use('/api/v1/roles/', roles);
 
 app.use('/api/v1/menus/', menus);
+app.use('/api/v1/schedules', schedules);
 app.use('/api/v1/restaurants', restaurants);
 
 app.listen(port, () => {

@@ -33,7 +33,7 @@ menus.post('/', multerConfig.saveToUploads, validateUser, async (req, res) => {
       res.json({
         success: true,
         message: 'success',
-        data: result,
+        data: req.body,
       });
     })
     .catch(err => {
@@ -61,8 +61,8 @@ menus.delete('/:id', async (req, res) => {
       });
     } else {
       res.status(404).json({
-        success: true,
-        message: 'Successfully deleted',
+        success: false,
+        message: 'Data not found',
         data: result,
       });
     }

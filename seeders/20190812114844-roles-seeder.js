@@ -1,28 +1,26 @@
-"use strict";
+'use strict';
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.bulkInsert(
-      "Roles",
+      'Restaurants',
       [
         {
-          id: 0,
-          name: "Administrator",
+          name: 'Lembur Kuring',
+          avatar: '',
+          street: 'Medan Amplas',
+          email: 'lemburkuring@gmail.com',
+          password: 'admin',
+          approved: true,
           createdAt: new Date(),
-          updatedAt: new Date()
+          updatedAt: new Date(),
         },
-        {
-          id: 1,
-          name: "User",
-          createdAt: new Date(),
-          updatedAt: new Date()
-        }
       ],
-      {}
+      {},
     );
   },
 
   down: (queryInterface, Sequelize) => {
-    return queryInterface.bulkDelete("Roles", null, {});
-  }
+    return queryInterface.bulkDelete('Roles', null, {});
+  },
 };
