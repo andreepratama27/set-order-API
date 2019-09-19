@@ -36,4 +36,6 @@ app.listen(port, () => {
   console.log(`🚀 Server running on ${port}`);
 });
 
-module.exports = app; // const {GraphQLServer} = require('graphql-yoga'); // server.start(() => console.log("🚀 server running")); //   type Query { //     user(username: String!): User //   } //     name: String //     avatar_url: String //   } // `; //   Query: { //     user: (_, args) => { //       const {username} = args; //         .get(`https://api.github.com/users/${username}`) //         .then(res => res.data); //     }, //   }, // }; //   console.log(`🚀 Server running`); // const BASE_URL = 'https://api.github.com/users'; // const typeDefs = ` //   type User { // const resolvers = { //       return axios // const server = new GraphQLServer({typeDefs, resolvers}); // server.start(() => {
+module.exports = app;
+
+// const {GraphQLServer} = require('graphql-yoga'); // server.start(() => console.log("🚀 server running")); //   type Query { //     user(username: String!): User //   } //     name: String //     avatar_url: String //   } // `; //   Query: { //     user: (_, args) => { //       const {username} = args; //         .get(`https://api.github.com/users/${username}`) //         .then(res => res.data); //     }, //   }, // }; //   console.log(`🚀 Server running`); // const BASE_URL = 'https://api.github.com/users'; // const typeDefs = ` //   type User { // const resolvers = { //       return axios // const server = new GraphQLServer({typeDefs, resolvers}); // server.start(() => {
