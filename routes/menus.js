@@ -4,6 +4,8 @@ const {Menu, Restaurant} = require('../models');
 const multerConfig = require('../utils/multer');
 const {validateUser} = require('./../middleware');
 
+const upload = require('../services/image-upload.js');
+
 menus.get('/', validateUser, async (req, res) => {
   let userId = req.body.userId;
 
@@ -66,6 +68,22 @@ menus.delete('/:id', async (req, res) => {
         data: result,
       });
     }
+  });
+});
+
+menus.post('/image-upload', (req, res) => {
+  upload.uploadImage(req, res, err => {
+    if (err) {
+      return res.status(422).send({
+        errors: [
+          {
+            title: 'Image upload error',
+            detail: err.message,
+          },
+        ],
+      });
+    }
+    return res.json({imageUrl: req.file.location});
   });
 });
 
