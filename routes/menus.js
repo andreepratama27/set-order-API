@@ -72,18 +72,8 @@ menus.delete('/:id', async (req, res) => {
 });
 
 menus.post('/image-upload', (req, res) => {
-  upload.uploadImage(req, res, err => {
-    if (err) {
-      return res.status(422).send({
-        errors: [
-          {
-            title: 'Image upload error',
-            detail: err.message,
-          },
-        ],
-      });
-    }
-    return res.json({imageUrl: req.file.location});
+  res.json({
+    success: true,
   });
 });
 
