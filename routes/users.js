@@ -23,12 +23,12 @@ users.get('/', (req, res) => {
     });
 });
 
-users.post('/', (req, res) => {
-  let {name, email, password, roleId} = req.body;
+users.post('/signup', (req, res) => {
+  let {name, email, password} = req.body;
 
   bcrypt.genSalt(saltRound, (err, salt) => {
     bcrypt.hash(password, salt, (err, hash) => {
-      User.create({name, email, password: hash, roleId})
+      User.create({name, email, password: hash})
         .then(result => {
           res.json({
             success: true,
