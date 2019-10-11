@@ -25,26 +25,12 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
 app.use('/api/v1/users/', users);
-app.use('/api/v1/roles/', roles);
+// app.use('/api/v1/roles/', roles);
 
 app.use('/api/v1/menus/', menus);
 app.use('/api/v1/schedules', schedules);
 app.use('/api/v1/sections', sections);
 app.use('/api/v1/restaurants', restaurants);
-
-app.get('/testing', (req, res) => {
-  res.json({
-    success: true,
-    message: 'Testing successfull',
-  });
-});
-
-app.get('/api/v1/testing', (req, res) => {
-  res.json({
-    success: true,
-    message: 'Testing 2 successfull',
-  });
-});
 
 app.listen(port, () => {
   console.log(`🚀 Server running on ${port}`);

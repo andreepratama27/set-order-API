@@ -1,17 +1,17 @@
-"use strict";
+'use strict';
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define(
-    "User",
+    'User',
     {
       name: DataTypes.STRING,
       email: DataTypes.STRING,
       password: DataTypes.STRING,
-      roleId: DataTypes.INTEGER
+      // roleId: DataTypes.INTEGER
     },
-    {}
+    {},
   );
   User.associate = function(models) {
-    User.belongsTo(models.Role, { foreignKey: "roleId", as: "role" });
+    // User.belongsTo(models.Role, { foreignKey: "roleId", as: "role" });
   };
   return User;
 };
